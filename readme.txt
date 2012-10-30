@@ -4,7 +4,7 @@ Donate link: http://www.u3b.com.br/donate
 Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor
 Requires at least: 3.0.1
 Tested up to: 3.4.2
-Stable tag: 0.8
+Stable tag: 0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,11 @@ Contact Form 7 Group Mail allows you to send messages to multiple users, accordi
 
 = Does it send 'Cc' and 'Cco' e-mails? =
 
-Not yet. It will be available on 0.9 version.
+Yes. It's possible since this version (0.9).
+
+= What version of Contact Form 7 I need? =
+
+This plugin was succesfully tested on 3.3.1, but it probably works with other versions.
 
 == Screenshots ==
 
@@ -33,11 +37,17 @@ Not yet. It will be available on 0.9 version.
 
 == Changelog ==
 
+= 0.9 =
+* Added "Cc" and "Cco" options
+
 = 0.8 =
 * Added 'contributors' option.
 * Lighter code.
 
 == Upgrade Notice ==
+
+= 0.9 =
+This version adds "Cc" and "Cco" options to plugin.
 
 = 0.8 =
 This version adds a new 'contributors' option to plugin and is lighter.

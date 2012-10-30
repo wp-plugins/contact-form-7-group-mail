@@ -3,7 +3,7 @@
 Plugin Name: Contact Form 7 Group Mail
 Plugin URI: http://www.u3b.com.br/contact-form-7-group-mail
 Description: Send 'Contact Form 7' mails to all users of any group (superadmins, admins, editors, authors, contributors, subscribers).
-Version: 0.8
+Version: 0.9
 Author: Augusto Bennemann
 Author URI: http://www.u3b.com.br
 License: GPL2
@@ -25,24 +25,6 @@ License: GPL2
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-    
-add_filter( 'wpcf7_mail_components', 'wpcf7_group_mail_components', 10, 2 );
-
-
-function wpcf7_group_mail_components( $components, $wpcf7 ) {
-    $nomes = array("superadmin", "administrator", "editor", "author", "contributor", "subscriber");
-
-    for($i = 0; $i <= 5; $i++){
-        if (get_option($nomes[$i]) == "on"){
-        $group_users = get_users('blog_id=1&orderby=nicename&role='.$nomes[$i]);
-        foreach ($group_users as $user) {
-            $components['recipient'] .= ', ' . $user->user_email ;
-        };
-    }}
-
-    return $components;
-}
-
 
 add_action('admin_menu', 'wpcf7_group_mail_create_menu');
 
@@ -51,15 +33,15 @@ function wpcf7_group_mail_create_menu() {
     add_action( 'admin_init', 'wpcf7_group_mail_register_settings' );
 }
 
-
 function wpcf7_group_mail_register_settings() {
+	 register_setting( 'wpcf7_group_mail-settings-group', 'mode' );
     register_setting( 'wpcf7_group_mail-settings-group', 'superadmin' );
     register_setting( 'wpcf7_group_mail-settings-group', 'administrator' );
     register_setting( 'wpcf7_group_mail-settings-group', 'editor' );
     register_setting( 'wpcf7_group_mail-settings-group', 'author' );
     register_setting( 'wpcf7_group_mail-settings-group', 'contributor' );
     register_setting( 'wpcf7_group_mail-settings-group', 'subscriber' );
-}
+} 
 
 function wpcf7_group_mail_settings_page() {
 ?>
@@ -72,8 +54,17 @@ function wpcf7_group_mail_settings_page() {
 			<table class="form-table">
 
 			<?php $nomes = array("superadmin", "administrator", "editor", "author", "contributor", "subscriber");
-
-				for($i = 0; $i <= 5; $i++){?>
+				?>
+				<tr valign="top">
+				<th scope="row">Mode</th>
+				<td>
+					<select name="mode">
+						<option value="normal" <?php if(get_option("mode") == "normal")echo 'selected="selected"'; ?>>Normal</option>
+						<option value="cc" <?php if(get_option("mode") == "cc")echo 'selected="selected"'; ?> >Cc</option>
+						<option value="cco" <?php if(get_option("mode") == "cco")echo 'selected="selected"'; ?> >Cco</option>
+					</select>
+				</td></tr>
+				<?php for($i = 0; $i <= 5; $i++){?>
 					<tr valign="top">
             	<th scope="row"><?=$nomes[$i]?></th>
             	<td><input type="checkbox" name="<?=$nomes[$i]?>" <?php if (get_option($nomes[$i]) == "on") echo 'checked="checked"'; ?>/></td>
@@ -84,4 +75,28 @@ function wpcf7_group_mail_settings_page() {
         <?php submit_button(); ?>
     </form>
     </div>
-<?php } ?>
+<?php } 
+    
+
+add_filter( 'wpcf7_mail_components', 'wpcf7_group_mail_components', 10, 2 );
+
+function wpcf7_group_mail_components( $components, $wpcf7 ) {
+    $nomes = array("superadmin", "administrator", "editor", "author", "contributor", "subscriber");
+	 $values = '';
+
+    for($i = 0; $i <= 5; $i++){
+        if (get_option($nomes[$i]) == "on"){
+        $group_users = get_users('blog_id=1&orderby=nicename&role='.$nomes[$i]);
+        foreach ($group_users as $user) {
+        		$values .= ', ' . $user->user_email ;
+        };
+    }}
+
+	if( get_option("mode") == "cc" ){ $exploded = explode(',', $values, 2);$components['additional_headers'] .= "Cc: ".$exploded[1];}
+	else if(get_option("mode") == "cco"){ $exploded = explode(',', $values, 2);$components['additional_headers'] .= "Cco: ".$exploded[1]; }
+	else{ $components['recipient'] .= $values;}
+
+
+    return $components;
+}
+?>
