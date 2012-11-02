@@ -26,6 +26,15 @@ License: GPL2
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+function get_c_roles() {
+    global $wp_roles;
+
+    $all_roles = $wp_roles->roles;
+    $editable_roles = apply_filters('editable_roles', $all_roles);
+
+    return $editable_roles;
+}
+
 add_action('admin_menu', 'wpcf7_group_mail_create_menu');
 
 function wpcf7_group_mail_create_menu() {
@@ -35,7 +44,7 @@ function wpcf7_group_mail_create_menu() {
 
 function wpcf7_group_mail_register_settings() {
     register_setting( 'wpcf7_group_mail-settings-group', 'mode' );
-    $roles_keys = array_keys(get_editable_roles());
+    $roles_keys = array_keys(get_c_roles());
     for($i = 0; $i < sizeof($roles_keys); $i++){
         register_setting( 'wpcf7_group_mail-settings-group', $roles_keys[$i] );
     }
@@ -53,7 +62,7 @@ function wpcf7_group_mail_settings_page() {
         <table class="form-table">
 
             <?php 
-            $nomes = get_editable_roles();
+            $nomes = get_c_roles();
             $nomes_keys = array_keys($nomes);
             ?>
             <tr valign="top">
@@ -86,8 +95,7 @@ add_filter( 'wpcf7_mail_components', 'wpcf7_group_mail_components', 10, 2 );
 
 function wpcf7_group_mail_components( $components, $wpcf7 ) {
     
-    global $wp_roles;
-    $nomes = apply_filters('editable_roles', $wp_roles->roles);
+    $nomes = get_c_roles();
     $nomes_keys = array_keys($nomes);
     $values = '';
 
