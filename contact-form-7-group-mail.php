@@ -2,7 +2,7 @@
 /*
 Plugin Name: Contact Form 7 Group Mail
 Plugin URI: http://www.u3b.com.br/plugins/contact-form-7-group-mail
-Description: Send 'Contact Form 7' mails to all users of any group (admins, editors, authors, contributors, subscribers and customs roles).
+Description: Send 'Contact Form 7' mails to all users of any group (admins, editors, authors, contributors, subscribers and custom roles).
 Version: 1.0
 Author: Augusto Bennemann
 Author URI: http://www.u3b.com.br
