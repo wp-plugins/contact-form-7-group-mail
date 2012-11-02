@@ -8,7 +8,7 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Allows you to send Contact Form 7 messages to a group (admins, editors, authors, contributor, subscribers). 
+Allows you to send Contact Form 7 messages to any group (admins, editors, authors, contributor, subscribers and custom roles). 
 
 == Description ==
 
