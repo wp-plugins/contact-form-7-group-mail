@@ -1,5 +1,5 @@
 === Contact Form 7 Group Mail ===
-Contributors: gutob, gutobenn
+Contributors: gutobenn
 Donate link: http://www.u3b.com.br/donate
 Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles
 Requires at least: 3.0.1
