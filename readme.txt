@@ -4,7 +4,7 @@ Donate link: http://www.u3b.com.br/donate
 Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles
 Requires at least: 3.0.1
 Tested up to: 3.4.2
-Stable tag: 1.1
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,9 +22,9 @@ Contact Form 7 Group Mail allows you to send messages to multiple users, accordi
 
 == Frequently Asked Questions ==
 
-= Is it possible to use a different configuration for each form? =
+= Is it possible to use different configurations for each form? =
 
-Yes. 
+Not yet. It will be available on 1.1 version.
 
 = Can I send the messages to a group that I create? =
 
