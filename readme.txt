@@ -1,10 +1,10 @@
 === Contact Form 7 Group Mail ===
-Contributors: gutob
+Contributors: gutobenn, edpittol
 Donate link: http://www.u3b.com.br/donate
-Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles
+Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles, individual
 Requires at least: 3.0.1
 Tested up to: 3.4.2
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,14 +17,14 @@ Contact Form 7 Group Mail allows you to send messages to multiple users, accordi
 == Installation ==
 
 1. Upload 'contact-form-7-group-mail' folder to the '/wp-content/plugins/' directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to 'Group Mail' page under 'Contact' menu and select groups to receive the e-mails.
+2. Create or edit a 'Contact Form 7' form.
+3. Go to 'Group Mail' and select groups to receive the e-mails.
 
 == Frequently Asked Questions ==
 
 = Is it possible to use different configurations for each form? =
 
-Not yet. It will be available on 1.1 version.
+Yes! Individual configuration is available
 
 = Can I send the messages to a group that I create? =
 
@@ -32,7 +32,7 @@ Yes, it works with custom roles.
 
 = Does it send 'Cc' and 'Cco' e-mails? =
 
-Yes. It's possible since 0.9 version.
+Yes. It's possible since version 0.9
 
 = What version of Contact Form 7 I need? =
 
@@ -40,9 +40,13 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 
 == Screenshots ==
 
-1. Settings page
+1. Form Settings
+2. Multiple usage: sending emails to users.
 
 == Changelog ==
+
+= 1.1 =
+* Individual configuration available
 
 = 1.0 =
 * Works with custom roles
@@ -55,6 +59,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 * Lighter code.
 
 == Upgrade Notice ==
+
+= 1.1 =
+This version allows individual configuration. IMPORTANT: Global configuration isn't available anymore, so the active configuration will be set to all forms.
 
 = 1.0 =
 This version allows you to use custom roles.
