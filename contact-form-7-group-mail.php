@@ -3,7 +3,7 @@
 Plugin Name: Contact Form 7 Group Mail
 Plugin URI: http://www.u3b.com.br/plugins/contact-form-7-group-mail
 Description: Send 'Contact Form 7' mails to all users of any group (admins, editors, authors, contributors, subscribers and custom roles).
-Version: 1.0
+Version: 1.1
 Author: Augusto Bennemann
 Author URI: http://www.u3b.com.br
 License: GPL2
@@ -25,91 +25,143 @@ License: GPL2
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 function get_c_roles() {
     global $wp_roles;
 
     $all_roles = $wp_roles->roles;
     $editable_roles = apply_filters('editable_roles', $all_roles);
-
-    return $editable_roles;
-}
-
-add_action('admin_menu', 'wpcf7_group_mail_create_menu');
-
-function wpcf7_group_mail_create_menu() {
-    add_submenu_page('wpcf7', 'Group Mail', 'Group Mail','administrator', __FILE__, 'wpcf7_group_mail_settings_page');
-    add_action( 'admin_init', 'wpcf7_group_mail_register_settings' );
-}
-
-function wpcf7_group_mail_register_settings() {
-    register_setting( 'wpcf7_group_mail-settings-group', 'mode' );
-    $roles_keys = array_keys(get_c_roles());
-    for($i = 0; $i < sizeof($roles_keys); $i++){
-        register_setting( 'wpcf7_group_mail-settings-group', $roles_keys[$i] );
-    }
-} 
-
-function wpcf7_group_mail_settings_page() {
-?>
-    <div class="wrap">
-    <h2>Contact Form 7 Group Mail</h2>
-
-    Select groups to receive 'Contact Form 7' messages
-    <form method="post" action="options.php">
-
-        <?php settings_fields( 'wpcf7_group_mail-settings-group' ); ?>
-        <table class="form-table">
-
-            <?php 
-            $nomes = get_c_roles();
-            $nomes_keys = array_keys($nomes);
-            ?>
-            <tr valign="top">
-                <th scope="row">Mode</th>
-                <td>
-                    <select name="mode">
-                        <option value="normal" <?php if(get_option("mode") == "normal")echo 'selected="selected"'; ?>>Normal</option>
-                        <option value="cc" <?php if(get_option("mode") == "cc")echo 'selected="selected"'; ?> >Cc</option>
-                        <option value="cco" <?php if(get_option("mode") == "cco")echo 'selected="selected"'; ?> >Cco</option>
-                    </select>
-                </td>
-            </tr>
-            
-            <?php for($i = 0; $i < sizeof($nomes); $i++){?>
-                <tr valign="top">
-                    <th scope="row"><?=$nomes[$nomes_keys[$i]]['name']?></th>
-                    <td><input type="checkbox" name="<?=$nomes_keys[$i]?>" <?php if (get_option($nomes_keys[$i]) == "on") echo 'checked="checked"'; ?>/></td>
-                </tr>
-            <?php } ?>
-
-        </table>        
-        <?php submit_button(); ?>
-    </form>
-    </div>
-<?php } 
     
+    $roles = array();
+    
+    foreach ( $editable_roles as $slug => $role) {
+    	$roles[$slug] = $role['name'];
+    }
 
-add_filter( 'wpcf7_mail_components', 'wpcf7_group_mail_components', 10, 2 );
-
+    return $roles;
+}    
 
 function wpcf7_group_mail_components( $components, $wpcf7 ) {
     
-    $nomes = get_c_roles();
-    $nomes_keys = array_keys($nomes);
-    $values = '';
+    $settings = get_post_meta( $wpcf7->id, 'wpcf7_group_mail', true );
+    $values = array();
 
-    for($i = 0; $i < sizeof($nomes_keys); $i++){
-        if (get_option($nomes_keys[$i]) == "on"){
-        $group_users = get_users('blog_id=1&orderby=nicename&role='.$nomes_keys[$i]);
+   	foreach( $settings['roles'] as $slug => $role ) {
+        $group_users = get_users( "orderby=nicename&role={$role}" );
+        
         foreach ($group_users as $user) {
-                $values .= ', ' . $user->user_email ;
+        	$values[] = $user->user_email ;
         };
-    }}
+    }
 
-    if (get_option("mode") == "cc" ){ $exploded = explode(',', $values, 2);$components['additional_headers'] .= "Cc: ".$exploded[1];}
-    else if (get_option("mode") == "cco"){ $exploded = explode(',', $values, 2);$components['additional_headers'] .= "Cco: ".$exploded[1]; }
-    else{ $components['recipient'] .= $values;}
-
+    if( $settings['mode'] == "cc" ) {
+    	$components['additional_headers'] .= 'Cc: ' . implode( ', ', $values); 
+    } elseif( $settings['mode'] == "cco") {
+    	$components['additional_headers'] .= 'Cco: ' . implode( ', ', $values); 
+    } else { 
+    	$components['recipient'] .= ', ' . implode( ', ', $values);
+    }
 
     return $components;
-}?>
+}
+add_filter( 'wpcf7_mail_components', 'wpcf7_group_mail_components', 10, 2 );
+
+function wpcf7_group_mail_add_box_metabox( $post_id ) {
+	
+	add_meta_box( 
+		'wpcf7_group_mail_metabox', 
+		'Group Mail', 
+		'wpcf7_group_mail_metabox',
+		null,
+		'additional_settings',
+		'low'
+    );
+}
+add_action( 'wpcf7_add_meta_boxes', 'wpcf7_group_mail_add_box_metabox' );
+
+function wpcf7_group_mail_metabox( $post, $metabox ) {
+
+            	$roles = get_c_roles();
+            	$settings = get_post_meta( $post->id, 'wpcf7_group_mail', true );
+            ?>
+            	<div style="margin-bottom:6px;">
+		<label for="wpcf7_group_mail_mode">Mode</label>
+                    <select id="wpcf7_group_mail_mode" name="wpcf7_group_mail_mode" style="display:inline-block;">
+                        <option value="normal" <?php if( $settings['mode'] == "normal" )echo 'selected="selected"'; ?>>Normal</option>
+                        <option value="cc" <?php if( $settings['mode'] == "cc" )echo 'selected="selected"'; ?> >Cc</option>
+                        <option value="cco" <?php if( $settings['mode'] == "cco" )echo 'selected="selected"'; ?> >Cco</option>
+                    </select>
+		</div>
+            
+            <?php foreach( $roles as $slug => $name ) : ?>
+                <div style="margin-bottom:6px;">
+                    <input type="checkbox" style="margin-bottom:-1px; margin-right:4px;" name="wpcf7_group_mail_role_<?=$slug?>" id="wpcf7_group_mail_role_<?=$slug?>" 
+                    	<?php if ( in_array( $slug, $settings['roles'] ) ) echo 'checked="checked"'; ?>/>
+		    <label for="wpcf7_group_mail_role_<?=$slug?>"><?=$name?></label>
+                </div>
+            <?php endforeach;
+}
+
+/**
+ * 
+ * @param WPCF7_ContactForm $wpcf7 Object with the form informations. 
+ */
+function wpcf7_group_mail_save( $wpcf7 ) {
+	wpcf7_group_update_meta( $wpcf7->id );
+}
+add_action( 'wpcf7_after_save', 'wpcf7_group_mail_save' );
+
+/**
+ * 
+ * @param WPCF7_ContactForm $new The new form object.
+ * @param WPCF7_ContactForm $old The copied form object.
+ */
+function wpcf7_group_mail_copy( $new, $old ) {
+	wpcf7_group_update_meta( $new->id );
+}
+apply_filters( 'wpcf7_copy', 'wpcf7_group_mail_copy' );
+
+function wpcf7_group_update_meta( $wpcf7_id ) {
+
+	$settings = array();
+
+	$settings['mode'] = $_POST['wpcf7_group_mail_mode'];
+	
+	
+	
+	$settings['roles'] = array();
+	$roles = get_c_roles();
+	foreach( $roles as $slug => $role ) {
+	
+		if( isset( $_POST["wpcf7_group_mail_role_{$slug}"] ) && $_POST["wpcf7_group_mail_role_{$slug}"] == "on"  ) {
+			$settings['roles'][] = $slug;
+		}
+	}
+	
+	update_post_meta( $wpcf7_id, 'wpcf7_group_mail', $settings	);
+}
+
+
+
+/* detect old config (1.0 or older) and automatically reconfigure after installation. */
+function wpcf7_group_mail_reconfigure(){
+	if( get_option("mode") ){
+	$roles = get_c_roles();
+	$settings = array();
+
+	$settings['mode'] = get_option("mode");
+
+	foreach ($roles as $slug => $role ){
+		if( get_option($slug) == "on" ) $settings['roles'][]=$slug;
+	}
+
+	$posts_array = get_posts( array('post_type' => 'wpcf7_contact_form') );
+	foreach( $posts_array as $post ){
+		update_post_meta( $post->ID, 'wpcf7_group_mail', $settings	);
+	}
+
+	}
+}
+
+register_activation_hook( __FILE__, 'wpcf7_group_mail_reconfigure' );
+?>
