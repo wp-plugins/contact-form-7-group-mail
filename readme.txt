@@ -4,7 +4,7 @@ Donate link: http://www.u3b.com.br/donate
 Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles, individual
 Requires at least: 3.0.1
 Tested up to: 3.4.2
-Stable tag: 1.0
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 
 == Changelog ==
 
+= 1.1.5 =
+* Individual configuration available
+
 = 1.1 =
 * Individual configuration available
 
@@ -59,6 +62,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 * Lighter code.
 
 == Upgrade Notice ==
+
+= 1.1.5 =
+If you installed 1.1, please update! This version allows individual configuration. IMPORTANT: Global configuration isn't available anymore, so the active configuration will be set to all forms.
 
 = 1.1 =
 This version allows individual configuration. IMPORTANT: Global configuration isn't available anymore, so the active configuration will be set to all forms.
