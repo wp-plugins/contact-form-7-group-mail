@@ -45,6 +45,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 
 == Changelog ==
 
+= 1.1.7 =
+* Added translation support.
+
 = 1.1.5 =
 * Individual configuration available
 
@@ -62,6 +65,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 * Lighter code.
 
 == Upgrade Notice ==
+
+= 1.1.7 =
+* Plugin now allows translations. Portuguese available.
 
 = 1.1.5 =
 If you installed 1.1, please update! This version allows individual configuration. IMPORTANT: Global configuration isn't available anymore, so the active configuration will be set to all forms.

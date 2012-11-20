@@ -3,7 +3,7 @@
 Plugin Name: Contact Form 7 Group Mail
 Plugin URI: http://www.u3b.com.br/plugins/contact-form-7-group-mail
 Description: Send 'Contact Form 7' mails to all users of any group (admins, editors, authors, contributors, subscribers and custom roles).
-Version: 1.1.5
+Version: 1.2
 Author: Augusto Bennemann
 Author URI: http://www.u3b.com.br
 License: GPL2
@@ -26,15 +26,21 @@ License: GPL2
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+// i18n
+function wpcf7_group_mail_plugins_loaded() {
+	load_plugin_textdomain( 'contact-form-7-group-mail', false, 'contact-form-7-group-mail/languages' );
+}
+add_action( 'plugins_loaded', 'wpcf7_group_mail_plugins_loaded' );
+
 function get_c_roles() {
     global $wp_roles;
 
     $all_roles = $wp_roles->roles;
-    $editable_roles = apply_filters('editable_roles', $all_roles);
+    $editable_roles = apply_filters( 'editable_roles' , $all_roles );
     
     $roles = array();
     
-    foreach ( $editable_roles as $slug => $role) {
+    foreach ( $editable_roles as $slug => $role ) {
     	$roles[$slug] = $role['name'];
     }
 
@@ -85,11 +91,11 @@ function wpcf7_group_mail_metabox( $post, $metabox ) {
             	$settings = get_post_meta( $post->id, 'wpcf7_group_mail', true );
             ?>
             	<div style="margin-bottom:6px;">
-		<label for="wpcf7_group_mail_mode">Mode</label>
+		<label for="wpcf7_group_mail_mode"><?php _e( 'Mode', 'contact-form-7-group-mail' ) ?></label>
                     <select id="wpcf7_group_mail_mode" name="wpcf7_group_mail_mode" style="display:inline-block;">
-                        <option value="normal" <?php if( $settings['mode'] == "normal" )echo 'selected="selected"'; ?>>Normal</option>
-                        <option value="cc" <?php if( $settings['mode'] == "cc" )echo 'selected="selected"'; ?> >Cc</option>
-                        <option value="cco" <?php if( $settings['mode'] == "cco" )echo 'selected="selected"'; ?> >Cco</option>
+                        <option value="normal" <?php if( $settings['mode'] == "normal" ) echo 'selected="selected"'; ?>><?php _e( 'Normal', 'contact-form-7-group-mail' ) ?></option>
+                        <option value="cc" <?php if( $settings['mode'] == "cc" )echo 'selected="selected"'; ?>><?php _e( 'Cc', 'contact-form-7-group-mail' ) ?></option>
+                        <option value="cco" <?php if( $settings['mode'] == "cco" )echo 'selected="selected"'; ?>><?php _e( 'Cco', 'contact-form-7-group-mail' ) ?></option>
                     </select>
 		</div>
             
@@ -97,7 +103,7 @@ function wpcf7_group_mail_metabox( $post, $metabox ) {
                 <div style="margin-bottom:6px;">
                     <input type="checkbox" style="margin-bottom:-1px; margin-right:4px;" name="wpcf7_group_mail_role_<?=$slug?>" id="wpcf7_group_mail_role_<?=$slug?>" 
                     	<?php if ( in_array( $slug, $settings['roles'] ) ) echo 'checked="checked"'; ?>/>
-		    <label for="wpcf7_group_mail_role_<?=$slug?>"><?=$name?></label>
+		    <label for="wpcf7_group_mail_role_<?=$slug?>"><?=translate_user_role( $name ) ?></label>
                 </div>
             <?php endforeach;
 }
@@ -138,7 +144,7 @@ function wpcf7_group_update_meta( $wpcf7_id ) {
 		}
 	}
 	
-	update_post_meta( $wpcf7_id, 'wpcf7_group_mail', $settings	);
+	update_post_meta( $wpcf7_id, 'wpcf7_group_mail', $settings );
 }
 
 
@@ -157,15 +163,11 @@ function wpcf7_group_mail_reconfigure(){
 
 	$posts_array = get_posts( array('post_type' => 'wpcf7_contact_form') );
 	foreach( $posts_array as $post ){
-		update_post_meta( $post->ID, 'wpcf7_group_mail', $settings	);
+		update_post_meta( $post->ID, 'wpcf7_group_mail', $settings );
 	}
 
-	
+	}
 
 	delete_option("mode");
-	}
 }add_action('init','wpcf7_group_mail_reconfigure',1);
-
-//register_activation_hook( __FILE__, 'wpcf7_group_mail_reconfigure' );
-//add_action('update_plugin_complete_actions', 'wpcf7_group_mail_reconfigure');
 ?>
