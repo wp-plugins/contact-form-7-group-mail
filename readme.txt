@@ -12,7 +12,11 @@ Allows you to send Contact Form 7 messages to any group (admins, editors, author
 
 == Description ==
 
-Contact Form 7 Group Mail allows you to send messages to multiple users, according to their groups. With this plugin you can choose which groups (admins, editors, authors, contributors, subscribers and custom roles) are going to receive the e-mails. The list of recipients is automatically updated, so you don't need to change the contact form every time a user is added or removed. Important: it is an extension for Contact Form 7 plugin.
+Contact Form 7 Group Mail allows you to send messages to multiple users, according to their groups. With this plugin you can choose who (admins, editors, authors, contributors, subscribers and custom roles) are going to receive the e-mails. 
+
+The list of recipients is automatically updated, so it's not needed to change the contact form every time a user is added or removed. 
+
+Important: it is an extension for Contact Form 7 plugin.
 
 == Installation ==
 
@@ -24,13 +28,13 @@ Contact Form 7 Group Mail allows you to send messages to multiple users, accordi
 
 = Is it possible to use different configurations for each form? =
 
-Yes! Individual configuration is available
+Yes! Individual configuration is available.
 
-= Can I send the messages to a group that I create? =
+= Can I send the messages to a group that I created? =
 
 Yes, it works with custom roles.
 
-= Does it send 'Cc' and 'Cco' e-mails? =
+= Does it send 'Cc' and 'Bcc' e-mails? =
 
 Yes. It's possible since version 0.9
 
