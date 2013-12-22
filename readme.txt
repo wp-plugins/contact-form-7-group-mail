@@ -70,7 +70,7 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 == Upgrade Notice ==
 
 = 1.1.7 =
-* Fixed bugs on WordPress 3.8 and Contact Form 7 3.6
+* Fixed bugs on WordPress 3.8 and Contact Form 7 3.6. Translation also.
 
 = 1.1.7 =
 * Plugin now allows translations. Portuguese available.

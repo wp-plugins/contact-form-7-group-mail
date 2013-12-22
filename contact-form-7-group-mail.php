@@ -95,7 +95,7 @@ function wpcf7_group_mail_metabox( $post, $metabox ) {
                     <select id="wpcf7_group_mail_mode" name="wpcf7_group_mail_mode" style="display:inline-block;">
                         <option value="normal" <?php if( $settings['mode'] == "normal" ) echo 'selected="selected"'; ?>><?php _e( 'Normal', 'contact-form-7-group-mail' ) ?></option>
                         <option value="cc" <?php if( $settings['mode'] == "cc" )echo 'selected="selected"'; ?>><?php _e( 'Cc', 'contact-form-7-group-mail' ) ?></option>
-                        <option value="cco" <?php if( $settings['mode'] == "cco" )echo 'selected="selected"'; ?>><?php _e( 'Cco', 'contact-form-7-group-mail' ) ?></option>
+                        <option value="cco" <?php if( $settings['mode'] == "cco" )echo 'selected="selected"'; ?>><?php _e( 'Bcc', 'contact-form-7-group-mail' ) ?></option>
                     </select>
 		</div>
             
