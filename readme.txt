@@ -2,8 +2,8 @@
 Contributors: gutobenn, edpittol
 Donate link: http://www.u3b.com.br/donate
 Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles, individual
-Requires at least: 3.0.1
-Tested up to: 3.4.2
+Requires at least: 3.6
+Tested up to: 3.8
 Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 
 == Changelog ==
 
+= 1.3 =
+* Fixed bugs in WP 3.8 and CF7 3.6
+
 = 1.1.7 =
 * Added translation support.
 
@@ -65,6 +68,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 * Lighter code.
 
 == Upgrade Notice ==
+
+= 1.1.7 =
+* Fixed bugs on WordPress 3.8 and Contact Form 7 3.6
 
 = 1.1.7 =
 * Plugin now allows translations. Portuguese available.

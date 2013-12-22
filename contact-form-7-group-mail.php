@@ -3,7 +3,7 @@
 Plugin Name: Contact Form 7 Group Mail
 Plugin URI: http://www.u3b.com.br/plugins/contact-form-7-group-mail
 Description: Send 'Contact Form 7' mails to all users of any group (admins, editors, authors, contributors, subscribers and custom roles).
-Version: 1.1.7
+Version: 1.3
 Author: Augusto Bennemann
 Author URI: http://www.u3b.com.br
 License: GPL2
@@ -102,7 +102,7 @@ function wpcf7_group_mail_metabox( $post, $metabox ) {
             <?php foreach( $roles as $slug => $name ) : ?>
                 <div style="margin-bottom:6px;">
                     <input type="checkbox" style="margin-bottom:-1px; margin-right:4px;" name="wpcf7_group_mail_role_<?=$slug?>" id="wpcf7_group_mail_role_<?=$slug?>" 
-                    	<?php if ( in_array( $slug, $settings['roles'] ) ) echo 'checked="checked"'; ?>/>
+                    	<?php if ( !empty( $settings['roles'] ) ) if( in_array( $slug, $settings['roles'] ) ) echo 'checked="checked"'; ?>/>
 		    <label for="wpcf7_group_mail_role_<?=$slug?>"><?=translate_user_role( $name ) ?></label>
                 </div>
             <?php endforeach;
