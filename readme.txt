@@ -1,9 +1,9 @@
-=== Contact Form 7 Group Mail ===
+﻿=== Contact Form 7 Group Mail ===
 Contributors: gutobenn, edpittol
 Donate link: http://www.u3b.com.br/donate
 Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles, individual
 Requires at least: 3.6
-Tested up to: 3.8
+Tested up to: 4.1
 Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
