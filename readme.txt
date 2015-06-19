@@ -1,10 +1,10 @@
-﻿=== Contact Form 7 Group Mail ===
+=== Contact Form 7 Group Mail ===
 Contributors: gutobenn, edpittol
 Donate link: http://www.u3b.com.br/donate
 Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles, individual
 Requires at least: 3.6
-Tested up to: 4.1
-Stable tag: 1.3
+Tested up to: 4.2.2
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,7 +40,7 @@ Yes. It's possible since version 0.9
 
 = What version of Contact Form 7 I need? =
 
-This plugin was succesfully tested on 3.3.1, but it probably works with other versions.
+This plugin requires Contact Form 7 4.2 or later.
 
 == Screenshots ==
 
@@ -48,6 +48,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 2. Multiple usage: sending emails to users.
 
 == Changelog ==
+
+= 1.5 = 
+* This version is compatible with Contact Form 7 4.2
 
 = 1.3 =
 * Fixed bugs in WP 3.8 and CF7 3.6
@@ -72,6 +75,9 @@ This plugin was succesfully tested on 3.3.1, but it probably works with other ve
 * Lighter code.
 
 == Upgrade Notice ==
+
+= 1.5 = 
+* This version is compatible with Contact Form 7 4.2
 
 = 1.1.7 =
 * Fixed bugs on WordPress 3.8 and Contact Form 7 3.6. Translation also.
