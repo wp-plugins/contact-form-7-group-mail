@@ -3,7 +3,7 @@
 Plugin Name: Contact Form 7 Group Mail
 Plugin URI: http://www.u3b.com.br/plugins/contact-form-7-group-mail
 Description: Send 'Contact Form 7' mails to all users of any group (admins, editors, authors, contributors, subscribers and custom roles).
-Version: 1.5
+Version: 1.5.2
 Author: Augusto Bennemann
 Author URI: http://www.u3b.com.br
 License: GPL2
@@ -65,8 +65,8 @@ function wpcf7gm_components( $components, $wpcf7 ) {
 
     if ($settings['mode'] == "cc") {
     	$components['additional_headers'] .= 'Cc: ' . implode( ', ', $values); 
-    } elseif ($settings['mode'] == "cco") {
-    	$components['additional_headers'] .= 'Cco: ' . implode( ', ', $values); 
+    } elseif ($settings['mode'] == "bcc") {
+    	$components['additional_headers'] .= 'Bcc: ' . implode( ', ', $values); 
     } else { 
     	$components['recipient'] .= ', ' . implode( ', ', $values);
     }
@@ -108,7 +108,7 @@ function wpcf7gm_metabox( $post ) {
         <select id="wpcf7gm_mode" name="wpcf7gm_mode" style="display:inline-block;">
             <option value="normal" <?php if( $settings['mode'] == "normal" ) echo 'selected="selected"'; ?>><?php _e( 'Normal', 'contact-form-7-group-mail' ) ?></option>
             <option value="cc" <?php if( $settings['mode'] == "cc" )echo 'selected="selected"'; ?>><?php _e( 'Cc', 'contact-form-7-group-mail' ) ?></option>
-            <option value="cco" <?php if( $settings['mode'] == "cco" )echo 'selected="selected"'; ?>><?php _e( 'Bcc', 'contact-form-7-group-mail' ) ?></option>
+            <option value="bcc" <?php if( $settings['mode'] == "bcc" )echo 'selected="selected"'; ?>><?php _e( 'Bcc', 'contact-form-7-group-mail' ) ?></option>
         </select>
 	</div>
             
