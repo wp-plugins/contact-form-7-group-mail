@@ -3,8 +3,8 @@ Contributors: gutobenn, edpittol
 Donate link: http://www.u3b.com.br/donate
 Tags: contact, form, 7, mass, email, group, admin, subscriber, author, editor, contributor, custom roles, individual
 Requires at least: 3.6
-Tested up to: 4.3
-Stable tag: 1.5.2
+Tested up to: 4.3.1
+Stable tag: 1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,9 @@ This plugin requires Contact Form 7 4.2 or later.
 
 == Changelog ==
 
+= 1.7 =
+* Bcc and Cc are working again
+
 = 1.5.2 =
 * Bug fixed: Bcc working again
 
@@ -78,6 +81,9 @@ This plugin requires Contact Form 7 4.2 or later.
 * Lighter code.
 
 == Upgrade Notice ==
+
+= 1.7 =
+* VERY IMPORTANT UPGRADE. Bcc and Cc modes are fixed in this version.
 
 = 1.5.2 =
 * Important bug fixed: Bcc is working again.
